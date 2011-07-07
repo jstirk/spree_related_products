@@ -46,25 +46,27 @@
     <%= javascript_include_tag 'admin/orders/edit.js' %>
     <%= stylesheet_link_tag 'admin/edit_orders.css' %>
 
-    <script type="text/javascript">
-      $("#add_related_product").live("click", function(){
-        if($('#add_variant_id').val() == ''){ return false; }
-        update_target = jQuery(this).attr("data-update");
+    <%= hook :spree_related_products_product_related_javascript do %>
+      <script type="text/javascript">
+        $("#add_related_product").live("click", function(){
+          if($('#add_variant_id').val() == ''){ return false; }
+          update_target = jQuery(this).attr("data-update");
 
-        jQuery.ajax({ dataType: 'script', url: this.href, type: "POST",
-            data: {"relation[related_to_type]" : "Product",
-                   "relation[related_to_id]": $('#add_variant_id').val(),
-                   "relation[relation_type_id]": $('#add_type').val(),
-                   "relation[discount_amount]" : $('#add_discount').val()},
-            success: function(data){
-              $("#"+update_target).html(data);
-              $('#add_product_name').val('');
-              $('#add_variant_id').val('');
-              $('#add_quantity').val(1) }
+          jQuery.ajax({ dataType: 'script', url: this.href, type: "POST",
+              data: {"relation[related_to_type]" : "Product",
+                     "relation[related_to_id]": $('#add_variant_id').val(),
+                     "relation[relation_type_id]": $('#add_type').val(),
+                     "relation[discount_amount]" : $('#add_discount').val()},
+              success: function(data){
+                $("#"+update_target).html(data);
+                $('#add_product_name').val('');
+                $('#add_variant_id').val('');
+                $('#add_quantity').val(1) }
+          });
+          return false;
         });
-        return false;
-      });
-    </script>
+      </script>
+    <% end %>
   <% end %>
 
 <% end %>

@@ -46,8 +46,12 @@ If you install the spree-automatic-coupons extension you can also specify a disc
 
 View Hooks
 ----------
-The `spree_related_products_product_related_form` view hook is exposed
-around the form on the Related admin page.
+View hooks are provided in some locations.
+
+`spree_related_products_product_related_form` around the form on the Related admin page.
+
+`spree_related_products_product_related_javascript` around the script
+tag containing the JavaScript to create a new Relation row.
 
 
 Development
